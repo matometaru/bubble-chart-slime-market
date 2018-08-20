@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 179 136" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M37.21875,102.371094 C46.2329636,110.68944 42.9492188,126.109375 52.0234375,120.726562 C61.0976562,115.34375 59.6200063,102.371094 71.28125,102.371094 C82.9424937,102.371094 79.94923,135.082031 89.234765,135.082031 C98.5203001,135.082031 103.836765,102.371094 111.660156,102.371094 C119.483548,102.371094 120.797195,120.726562 128.753906,120.726562 C136.710618,120.726562 136.710618,118.366385 143.496094,102.371094 C150.28157,86.3758026 179.904899,92.0678509 177.925781,73.0976562 C175.946663,54.1274616 154.729396,40.46875 136.433594,34.6757812 C118.137791,28.8828125 118.137791,14.3867187 96.4726562,7.984375 C74.807521,1.58203125 60.0703125,14.3867187 52.0234375,34.6757812 C43.9765625,54.9648437 0.41015625,52.09375 0.41015625,73.0976562 C0.41015625,94.1015625 28.2045364,94.0527477 37.21875,102.371094 Z" id="Path-2" stroke="#979797" fill="#A1F471"></path>
+        <circle id="Oval" stroke="#979797" fill="#A1F471" cx="39.5" cy="19.5" r="8.5"></circle>
+        <circle id="Oval" stroke="#979797" fill="#A1F471" cx="13.5" cy="37.5" r="8.5"></circle>
+        <circle id="Oval-2" stroke="#979797" fill="#A1F471" cx="140.5" cy="12.5" r="11.5"></circle>
+        <text id="Bubble-Chart-Slime-M" font-family="DFWaWaTC-W5, Wawati TC" font-size="18" font-weight="normal" line-spacing="18" fill="#000000">
+            <tspan x="40" y="68">Bubble Chart</tspan>
+            <tspan x="40" y="86">  Slime Market</tspan>
+        </text>
+    </g>
+</svg>

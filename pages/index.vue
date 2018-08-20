@@ -1,65 +1,92 @@
 <template>
-  <section class="container">
-    <div>
-      <app-logo/>
-      <h1 class="title">
-        bubble-chart-slime-market
-      </h1>
-      <h2 class="subtitle">
-        Bubble chart in slimmer market for Slime investors who want to get a metal heart.
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+  <div id="app">
+    <v-navigation-drawer fixed app>
+      <v-container>
+        <v-layout row wrap>
+          <v-btn block depressed @click='addPoint'>Add Point</v-btn>
+          <v-flex xs12>
+          <v-text-field v-model='labels.x' label='X Axis Label' />
+            </v-flex>
+          <v-flex xs12>
+          <v-text-field v-model='labels.y' label='Y Axis Label' />
+          </v-flex>
+          
+          <v-flex xs12>
+              <label>Fill Color ({{pointStyle.fill}}):
+                <input type='color' v-model='pointStyle.fill'>
+              </label>
+            </v-flex>
+          <v-flex xs12>
+              <label>Stroke Color ({{pointStyle.stroke}}):
+                <input type='color' v-model='pointStyle.stroke'>
+              </label>
+            </v-flex>
+          <v-flex xs12>
+              <v-text-field type='number' label='point stroke width' v-model.number='pointStyle.strokeWidth' />
+            </v-flex>
+          
+          <v-flex xs12>
+              <v-slider :label='`Radius ${radius}`' v-model='radius' min='1' max='10' step='1' thumb-label />
+            </v-flex>
+        </v-layout>
+      </v-container>
+    </v-navigation-drawer>
+      
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center align-center>
+          <v-flex xs12>
+            <v-chart :data='data' :labels='labels' :point-style='pointStyle' :radius='radius' />
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </div>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
+import Chart from '~/components/Chart.vue';
 
 export default {
   components: {
-    AppLogo
-  }
+    'v-chart': Chart,
+  },
+  data: () => ({
+    data: [],
+    pointStyle: {
+      stroke: '#43e742',
+      fill: '#ffffff',
+      strokeWidth: 1,
+    },
+    radius: 4,
+    drawer: true,
+    labels: {
+      x: 'X Axis',
+      y: 'Y Axis',
+    },
+  }),
+  created() {
+    this.data = Array(10).fill(10).map((d, i) => {
+      return {
+        x: i,
+        y: Math.random(),
+      };
+    });
+  },
+  methods: {
+    addPoint() {
+      this.data.push({
+        x: this.data.length,
+        y: Math.random(),
+      })  ;
+    },
+  },
 }
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.test {
+  background: #000;
 }
 </style>
 
