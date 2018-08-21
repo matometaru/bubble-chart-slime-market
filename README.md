@@ -21,3 +21,7 @@ $ npm run generate
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
+## Data
+
+[Financial, Economic and Alternative Data \| Quandl](https://www.quandl.com/)が有料だったため、地道にスクレイピングし、欲しい情報を以下のファイルに保存します。
+/data/stocklist.json

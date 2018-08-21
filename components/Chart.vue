@@ -8,9 +8,9 @@
       </defs>
       
       <g :style='{transform: `translate(${margin.left}px, ${margin.top}px)`}'>
-        <v-zoom :dimensions='dimensions' />
+        <!-- <v-zoom :dimensions='dimensions' /> -->
         
-        <v-scatter clip-path="url(#myClip)" :x-scale='xScale' :y-scale='yScale' :data='data' :radius='radius' />
+        <v-scatter clip-path="url(#myClip)" :x-scale='xScale' :y-scale='yScale' :data='data' />
         
         <v-axis :data='data' :x-scale='xScale' :y-scale='yScale' :dimensions='dimensions' :labels='labels' />
       </g>
@@ -32,10 +32,6 @@ export default {
     },
     labels: {
       type: Object,
-    },
-    radius: {
-      type: Number,
-      default: 4,
     },
   },
   components: {

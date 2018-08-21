@@ -3,32 +3,51 @@
     <v-navigation-drawer fixed app v-model="drawer">
       <v-container>
         <v-layout row wrap>
-          <v-btn block depressed @click='addPoint'>Add Point</v-btn>
-          
           <v-flex xs12>
-            <v-text-field v-model='number' label='証券コード' />
+            <v-btn block depressed @click='getStock'>Get Stock</v-btn>
           </v-flex>
 
           <v-flex xs12>
-              <label>Fill Color ({{pointStyle.fill}}):
-                <input type='color' v-model='pointStyle.fill'>
-              </label>
-            </v-flex>
+            <v-btn block depressed @click='addPoint'>Add Point</v-btn>
+          </v-flex>
+          
           <v-flex xs12>
-              <label>Stroke Color ({{pointStyle.stroke}}):
-                <input type='color' v-model='pointStyle.stroke'>
-              </label>
-            </v-flex>
+            <v-text-field v-model='code' label='証券コード' />
+          </v-flex>
+
           <v-flex xs12>
-              <v-text-field type='number' label='point stroke width' v-model.number='pointStyle.strokeWidth' />
-            </v-flex>
+            <label>Fill Color ({{pointStyle.fill}}):
+              <input type='color' v-model='pointStyle.fill'>
+            </label>
+          </v-flex>
         </v-layout>
       </v-container>
     </v-navigation-drawer>
       
     <v-content>
       <v-container fluid fill-height>
-        <v-layout justify-center align-center>
+        <v-layout row wrap justify-center>
+
+          <v-flex
+            xs10
+            mt-5
+          >
+            <v-slider
+              min="0"
+              :max="seasons.length-1"
+              v-model="slider"
+              thumb-label="always"
+              thumb-size="64"
+            >
+              <template
+                slot="thumb-label"
+                slot-scope="props"
+              >  
+                <span>{{ season(props.value) }}</span>
+              </template>
+            </v-slider>
+          </v-flex>
+
           <v-flex xs12>
             <v-chart :data='data' :labels='labels' />
           </v-flex>
@@ -40,6 +59,7 @@
 
 <script>
 import Vue from 'vue'
+import axios from 'axios'
 import Chart from '~/components/Chart.vue';
 
 export default {
@@ -48,59 +68,87 @@ export default {
   },
   data: () => ({
     id: 0,
+    all: [],
     data: [],
     pointStyle: {
-      stroke: '#43e742',
+      stroke: '#dddddd',
       fill: '#ffffff',
       strokeWidth: 1,
     },
-    number: 3798, // 銘柄番号
+    code: 1301, // 銘柄番号
     value: 13067, // 時価総額
     name: 'ULSグループ',
     drawer: true,
     labels: {
-      x: '年月日',
+      x: 'ROE',
       y: 'PER',
     },
+    seasons: [
+      '2017-03',
+      '2017-06',
+      '2017-09',
+      '2017-12',
+      '2018-03',
+      '2018-06'
+    ]
   }),
   created() {
-    this.data = Array(10).fill(10).map((d, i) => {
-      return {
-        id: this.id++,
-        x: i,
-        y: Math.random(),
-        radius: Math.random() * 100,
-        number: 3798,
-        value: this.value,
-        name: this.name,
-        style: {
-          stroke: '#ddd',
-          fill: '#fff',
-          strokeWidth: 1,
-        }
-      };
-    });
+    // this.codeから各種情報を取得
+    let stock = () => {
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:3000/stocks/stocklist.json')
+          .then((res) => {
+            if (res.status !== 200) {
+              reject();
+            }
+            this.all = res.data;
+            resolve();
+          })
+      });
+    }
+    let display = async () => {
+      try {
+        await stock()
+      } catch(err) {
+        console.log("エラーが起こりました:" + err)
+      }
+    }
+    display()
   },
   methods: {
     addPoint() {
       this.data.push({
         id: this.id++,
-        x: this.data.length,
-        y: Math.random(),
-        radius: 4,
-        number: this.number,
-        value: this.value,
+        x: this.pbr,
+        y: this.per,
+        radius: this.value/10,
+        code: this.code,
         name: this.name,
         style: Vue.util.extend({}, this.pointStyle)
       });
     },
+    getStock() {
+      const filterNumber = this.code;
+      let data = this.all;
+      if (filterNumber) {
+        data = data.filter((row)=> {
+          return filterNumber == row.code
+        })
+      }
+      data = data[0];
+      this.per = data.date['2018-08-21'].per;
+      this.pbr = data.date['2018-08-21'].pbr;
+      this.value = data.date['2018-08-21'].volume;
+      this.name = data.name;
+      this.pointStyle.fill = data.color;
+    },
+    season (val) {
+      return this.seasons[val]
+    }
   },
 }
 </script>
 
 <style>
-.test {
-  background: #000;
-}
 </style>
 

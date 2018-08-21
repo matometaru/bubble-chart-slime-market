@@ -18,9 +18,6 @@ export default {
       return d3.zoom().on('zoom', this.zoomed);
     },
   },
-  mounted () {
-    console.log("#zoom");
-  },
   mounted() {
     d3.select(this.$refs.zoom)
       .call(this.zoom);
