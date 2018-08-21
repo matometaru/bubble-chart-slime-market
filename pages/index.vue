@@ -30,7 +30,7 @@
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
           <v-flex xs12>
-            <v-chart :data='data' :labels='labels' :point-style='pointStyle' />
+            <v-chart :data='data' :labels='labels' />
           </v-flex>
         </v-layout>
       </v-container>

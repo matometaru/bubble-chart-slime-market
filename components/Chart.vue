@@ -7,12 +7,12 @@
         </clipPath>
       </defs>
       
-      <g :style='{transform: `translate(${margin.left}px, ${margin.right}px)`}'>
+      <g :style='{transform: `translate(${margin.left}px, ${margin.top}px)`}'>
         <v-zoom :dimensions='dimensions' />
         
-        <v-axis :data='data' :x-scale='xScale' :y-scale='yScale' :dimensions='dimensions' :labels='labels' />
-        
         <v-scatter clip-path="url(#myClip)" :x-scale='xScale' :y-scale='yScale' :data='data' :radius='radius' />
+        
+        <v-axis :data='data' :x-scale='xScale' :y-scale='yScale' :dimensions='dimensions' :labels='labels' />
       </g>
     </svg>
   </div>
@@ -64,14 +64,14 @@ export default {
       return this.height - this.margin.top - this.margin.bottom;
     },
     xScale() {
-      // console.log(this.chartWidth);
+      console.log(this.chartWidth);
       return d3.scaleLinear()
         .range([0, this.chartWidth])
         .domain(d3.extent(this.data, d => d.x))
         .nice();
     },
     yScale() {
-      // console.log(this.chartHeight);
+      console.log(this.chartHeight);
       return d3.scaleLinear()
         .range([this.chartHeight, 0])
         .domain(d3.extent(this.data, d => d.y))
