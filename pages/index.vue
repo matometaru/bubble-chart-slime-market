@@ -3,16 +3,17 @@
     <v-navigation-drawer fixed app v-model="drawer">
       <v-container>
         <v-layout row wrap>
-          <v-flex xs12>
-            <v-btn block depressed @click='getStock'>Get Stock</v-btn>
-          </v-flex>
 
           <v-flex xs12>
             <v-btn block depressed @click='addPoint'>Add Point</v-btn>
           </v-flex>
           
           <v-flex xs12>
-            <v-text-field v-model='code' label='証券コード' />
+            <v-text-field :value='code' @input='getStock' label='証券コード' />
+          </v-flex>
+
+          <v-flex xs12>
+            <v-text-field v-model='name' label='銘柄名' />
           </v-flex>
 
           <v-flex xs12>
@@ -20,6 +21,13 @@
               <input type='color' v-model='pointStyle.fill'>
             </label>
           </v-flex>
+
+          <v-flex xs12>
+            <ul>
+              <li v-for='d in data' :key="d.id">{{d.name}}</li>
+            </ul>
+          </v-flex>
+
         </v-layout>
       </v-container>
     </v-navigation-drawer>
@@ -77,7 +85,7 @@ export default {
     },
     code: 1301, // 銘柄番号
     value: 13067, // 時価総額
-    name: 'ULSグループ',
+    name: '極洋',
     drawer: true,
     labels: {
       x: 'ROE',
@@ -127,20 +135,22 @@ export default {
         style: Vue.util.extend({}, this.pointStyle)
       });
     },
-    getStock() {
-      const filterNumber = this.code;
+    getStock(e) {
+      const filterNumber = e;
       let data = this.all;
       if (filterNumber) {
         data = data.filter((row)=> {
           return filterNumber == row.code
         })
       }
-      data = data[0];
-      this.per = data.date['2018-08-21'].per;
-      this.pbr = data.date['2018-08-21'].pbr;
-      this.value = data.date['2018-08-21'].volume;
-      this.name = data.name;
-      this.pointStyle.fill = data.color;
+      if(data.length === 1) {
+        data = data[0];
+        this.per = data.date['2018-08-21'].per;
+        this.pbr = data.date['2018-08-21'].pbr;
+        this.value = data.date['2018-08-21'].volume;
+        this.name = data.name;
+        this.pointStyle.fill = data.color;
+      }
     },
     season (val) {
       return this.seasons[val]
