@@ -33,13 +33,15 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    vendor: ['Vue','d3','axios']
   },
   /*
   ** Add
   */
   modules: [
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/axios'
   ],
   vuetify: {
     // Vuetify の設定はここに書く

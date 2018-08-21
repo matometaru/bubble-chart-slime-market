@@ -1,4 +1,4 @@
-<template id='zoom'>
+<template>
   <g>
     <rect ref='zoom' style='fill: whitesmoke;' :width='dimensions.width' :height='dimensions.height'></rect>
   </g>
@@ -8,7 +8,6 @@
 import * as d3 from 'd3';
 
 export default {
-  template: '#zoom',
   props: {
     dimensions: {
       type: Object,

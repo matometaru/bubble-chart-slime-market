@@ -1,6 +1,9 @@
-<template id='scatter'>
+<template>
   <g class='scatter'>
-    <circle v-for='(point, index) in data' :key='index' class='point' :cx='xScale(point.x)' :cy='yScale(point.y)' :r='radius' :style='pointStyle'></circle>
+    <template v-for='point in data'>
+      <circle :key='"circle-" + point.id' class='point' :cx='xScale(point.x)' :cy='yScale(point.y)' :r='point.radius' :style='point.style'></circle>
+      <text :key='"text-" + point.id' :x='xScale(point.x)' :y='yScale(point.y)'>{{point.id}}</text>
+    </template>
   </g>
 </template>
 
@@ -8,7 +11,6 @@
 import * as d3 from 'd3';
 
 export default {
-  template: '#scatter',
   props: {
     data: {
       type: Array,
@@ -21,18 +23,6 @@ export default {
     yScale: {
       type: Function,
       required: true,
-    },
-    radius: {
-      type: Number,
-      default: 4,
-    },
-    pointStyle: {
-      type: Object,
-      default: () => ({
-        stroke: '#43e742',
-        fill: '#ffffff',
-        strokeWidth: 2,
-      }),
     },
   }
 };

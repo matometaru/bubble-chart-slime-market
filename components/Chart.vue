@@ -1,4 +1,4 @@
-<template id='chart'>
+<template>
   <div>
     <svg ref='chart' width='100%' viewbox='0 0 960 600'>
       <defs>
@@ -12,7 +12,7 @@
         
         <v-axis :data='data' :x-scale='xScale' :y-scale='yScale' :dimensions='dimensions' :labels='labels' />
         
-        <v-scatter clip-path="url(#myClip)" :x-scale='xScale' :y-scale='yScale' :data='data' :radius='radius' :point-style='pointStyle' />
+        <v-scatter clip-path="url(#myClip)" :x-scale='xScale' :y-scale='yScale' :data='data' :radius='radius' />
       </g>
     </svg>
   </div>
@@ -25,16 +25,12 @@ import Scatter from '~/components/Scatter.vue';
 import Zoom from '~/components/Zoom.vue';
 
 export default {
-  template: '#chart',
   props: {
     data: {
       type: Array,
       required: true,
     },
     labels: {
-      type: Object,
-    },
-    pointStyle: {
       type: Object,
     },
     radius: {
@@ -68,12 +64,14 @@ export default {
       return this.height - this.margin.top - this.margin.bottom;
     },
     xScale() {
+      // console.log(this.chartWidth);
       return d3.scaleLinear()
         .range([0, this.chartWidth])
         .domain(d3.extent(this.data, d => d.x))
         .nice();
     },
     yScale() {
+      // console.log(this.chartHeight);
       return d3.scaleLinear()
         .range([this.chartHeight, 0])
         .domain(d3.extent(this.data, d => d.y))

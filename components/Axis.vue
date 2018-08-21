@@ -1,4 +1,4 @@
-<template id='axis'>
+<template>
   <g class='axis'>
     <text class='axis--label' :style='{transform: `translate(${-dimensions.margin.left / 1.5}px, ${dimensions.height / 2}px) rotate(-90deg)`}'>{{ labels.y }}</text>
     
@@ -12,7 +12,6 @@
 import * as d3 from 'd3';
 
 export default {
-  template: '#axis',
   props: {
     data: {
       type: Array,

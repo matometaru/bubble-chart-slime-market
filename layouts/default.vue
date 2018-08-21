@@ -24,6 +24,7 @@
 <script>
   export default {
     data: () => ({
+      drawer: null,
       icons: [
         'fab fa-facebook',
         'fab fa-twitter',
